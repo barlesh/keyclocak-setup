@@ -31,14 +31,14 @@ app.use(session({
 app.use(keycloak.middleware());
 
 //route protected with Keycloak
-app.get('/test', keycloak.protect(), function(req, res){
+app.get('/protected', keycloak.protect(), function(req, res){
 //   res.render('test', {title:'Test of the test'});
-    res.status(200).send({ msg: "test successful" });
+    res.status(200).send({ msg: "protected successful" });
 });
 
 //unprotected route
 app.get('/',function(req,res){
-  res.render('views/account');
+  res.status(200).send({ msg: "unprotected successful" });
 });
 
 app.use( keycloak.middleware( { logout: '/'} ));
