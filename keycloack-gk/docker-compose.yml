@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  keycloak-gatekeeper:
+    image: bitnami/keycloak-gatekeeper:latest
+    command: /keycloak-proxy --config /opt/bitnami/keycloak-gatekeeper/config.yaml
+    ports:
+      - '3001:3001'
+    volumes:
+      - /config/config.yaml:/opt/bitnami/keycloak-gatekeeper/config.yaml/config.yaml

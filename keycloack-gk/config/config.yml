@@ -1,0 +1,29 @@
+discovery-url: http://nas-10-keycloak.lan/auth/realms/sso
+client-id: metropolis
+client-secret: f3c1faac-78b2-4601-b4f8-961f2af5a331
+listen: 127.0.0.1:3001
+enable-refresh-tokens: false
+redirection-url: http://nas-10-metropolis.lan
+encryption-key: Agasd0ZDS#######L5Qy2Z2j
+upstream-url: http://127.0.0.1:4181
+enable-token-header: false
+enable-authorization-cookies: false
+enable-refresh-tokens: true
+enable-login-handler: true
+http-only-cookie: true
+cookie-access-name: sso-xxxxxx
+cookie-refresh-name: sso-yyyyyy
+preserve-host: true
+scopes:
+  - offline_access
+match-claims:
+  aud: metropolis
+  iss: http://nas-10-keycloak.lan/auth/realms/sso
+add-claims:
+  - name
+resources:
+  - uri: /*
+    roles:
+      - offline_access
+    groups:
+      - admin
