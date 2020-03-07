@@ -41,7 +41,7 @@ app.get('/',function(req,res){
   res.status(200).send({ msg: "unprotected successful" });
 });
 
-app.use( keycloak.middleware( { logout: '/'} ));
+app.use( keycloak.middleware( { logout: '/logout'} ));
 
 app.listen(port, function () {
   console.log(`Listening at http://localhost:${port}`);
