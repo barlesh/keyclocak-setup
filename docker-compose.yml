@@ -1,15 +1,21 @@
-version: "3.2"
+version: "3"
 
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    # image: quay.io/keycloak/keycloak:latest
+    image: jboss/keycloak
     ports:
-      - "8080:8080"
+    #   - "8080:8080"
+        - "8180:8080"
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
+    #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
     # volumes:
-    #     - ${KETCLOACK_DATA_PATH}:/tmp
+      # - ${KETCLOACK_DATA_PATH}:/tmp
+      #   - ${KC_IMPORT_FILE_FULL_PATH_HOST}:${KC_IMPORT_FILE_FULL_PATH_GUEST}
+    #   - conf_data:${KC_IMPORT_FILE_FULL_PATH_GUEST}
+    #   - ${KC_IMPORT_FILE_LOCATION_PATH_HOST}:${KC_IMPORT_FILE_LOCATION_PATH_GUEST}
 
   app1:
     build:
@@ -19,6 +25,8 @@ services:
       - PORT=${APP1_PORT}
     ports:
       - "${APP1_PORT}:${APP1_PORT}"
+    links:
+        - keycloak
 
   app2:
     build:
@@ -28,6 +36,11 @@ services:
       - PORT=${APP2_PORT}
     ports:
       - "${APP2_PORT}:${APP2_PORT}"
+    links:
+        - keycloak
+
+# volumes:
+#   conf_data:
 # volumes:
 #     - type: volume
 #         source: keycloack_data
