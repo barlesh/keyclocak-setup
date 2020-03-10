@@ -11,27 +11,23 @@ services:
     # volumes:
     #     - ${KETCLOACK_DATA_PATH}:/tmp
 
-    app1:
-      image:
-        context: `pwd'/keycloack-client/signon
-        dockerfile: Dockerfile
-      environment:
-        - PORT=${APP1_PORT}
-      ports:
-        - "${APP1_PORT}:${APP1_PORT}"
+  app1:
+    build:
+      context: keycloack-client/signon
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${APP1_PORT}
+    ports:
+      - "${APP1_PORT}:${APP1_PORT}"
 
-    app2:
-      image:
-        context: `pwd'/keycloack-client/signon
-        dockerfile: Dockerfile
-      environment:
-        - PORT=${APP2_PORT}
-      ports:
-        - "${APP2_PORT}:${APP2_PORT}"
-
-
-
-
+  app2:
+    build:
+      context: keycloack-client/signon
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${APP2_PORT}
+    ports:
+      - "${APP2_PORT}:${APP2_PORT}"
 # volumes:
 #     - type: volume
 #         source: keycloack_data
