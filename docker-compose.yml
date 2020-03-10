@@ -1,0 +1,45 @@
+version: "3.2"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    # volumes:
+    #     - ${KETCLOACK_DATA_PATH}:/tmp
+
+    app1:
+      image:
+        context: `pwd'/keycloack-client/signon
+        dockerfile: Dockerfile
+      environment:
+        - PORT=${APP1_PORT}
+      ports:
+        - "${APP1_PORT}:${APP1_PORT}"
+
+    app2:
+      image:
+        context: `pwd'/keycloack-client/signon
+        dockerfile: Dockerfile
+      environment:
+        - PORT=${APP2_PORT}
+      ports:
+        - "${APP2_PORT}:${APP2_PORT}"
+
+
+
+
+# volumes:
+#     - type: volume
+#         source: keycloack_data
+#         target: ${KETCLOACL_DATA_PATH}
+
+# volumes:
+#     keycloack_data:
+#         driver: local
+#         driver_opts:
+#         type: bind
+#         device: ${KETCLOACL_DATA_PATH}
