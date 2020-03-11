@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  keycloak:
+    # image: quay.io/keycloak/keycloak:latest
+    image: jboss/keycloak
+    ports:
+    #   - "8080:8080"
+        - "8180:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
+    # volumes:
+      # - ${KETCLOACK_DATA_PATH}:/tmp
+      #   - ${KC_IMPORT_FILE_FULL_PATH_HOST}:${KC_IMPORT_FILE_FULL_PATH_GUEST}
+    #   - conf_data:${KC_IMPORT_FILE_FULL_PATH_GUEST}
+    #   - ${KC_IMPORT_FILE_LOCATION_PATH_HOST}:${KC_IMPORT_FILE_LOCATION_PATH_GUEST}
+
+  app1:
+    build:
+      context: keycloack-client/signon
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${APP1_PORT}
+    ports:
+      - "${APP1_PORT}:${APP1_PORT}"
+    links:
+        - keycloak
+
+  app2:
+    build:
+      context: keycloack-client/signon
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${APP2_PORT}
+    ports:
+      - "${APP2_PORT}:${APP2_PORT}"
+    links:
+        - keycloak
+
+# volumes:
+#   conf_data:
+# volumes:
+#     - type: volume
+#         source: keycloack_data
+#         target: ${KETCLOACL_DATA_PATH}
+
+# volumes:
+#     keycloack_data:
+#         driver: local
+#         driver_opts:
+#         type: bind
+#         device: ${KETCLOACL_DATA_PATH}
