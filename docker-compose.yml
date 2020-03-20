@@ -27,10 +27,7 @@ services:
     ports:
       - "${APP1_PORT}:${APP1_PORT}"
     volumes:
-      # - type: bind
-      #   source: ./keycloak-server/realm-sso/realm.json
-      #   target: /usr/src/app/realm.json
-      - "./keycloak-server/realm-sso/realm.json:/usr/src/app/realm.json"
+      - "./keycloak-server/realm-sso/keycloak.json:/usr/src/app/keycloak.json"
     networks:
       - authnet
 
@@ -42,6 +39,8 @@ services:
       - PORT=${APP2_PORT}
     ports:
       - "${APP2_PORT}:${APP2_PORT}"
+    volumes:
+      - "./keycloak-server/realm-sso/keycloak.json:/usr/src/app/keycloak.json"
     networks:
       - authnet
 
