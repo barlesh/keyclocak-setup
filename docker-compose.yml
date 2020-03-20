@@ -26,8 +26,6 @@ services:
       - PORT=${APP1_PORT}
     ports:
       - "${APP1_PORT}:${APP1_PORT}"
-    # links:
-    #     - keycloak
     networks:
       - authnet
 
@@ -39,8 +37,6 @@ services:
       - PORT=${APP2_PORT}
     ports:
       - "${APP2_PORT}:${APP2_PORT}"
-    # links:
-    #     - keycloak
     networks:
       - authnet
 
