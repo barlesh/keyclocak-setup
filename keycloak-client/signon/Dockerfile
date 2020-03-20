@@ -16,4 +16,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "app-connect-keycloack.js" ]
+CMD [ "node", "app-connect-keycloak.js" ]

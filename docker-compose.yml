@@ -6,10 +6,10 @@ services:
     image: jboss/keycloak
     ports:
     #   - "8080:8080"
-        - "8180:8080"
+        - "{KC_SERVER_PORT}":{KC_SERVER_PORT}"
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_USER={KC_SERVER_USER}
+      - KEYCLOAK_PASSWORD={KC_SERVER_PASSWORD}
     #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
     # volumes:
       # - ${KETCLOACK_DATA_PATH}:/tmp
@@ -19,7 +19,7 @@ services:
 
   app1:
     build:
-      context: keycloack-client/signon
+      context: keycloak-client/signon
       dockerfile: Dockerfile
     environment:
       - PORT=${APP1_PORT}
@@ -30,7 +30,7 @@ services:
 
   app2:
     build:
-      context: keycloack-client/signon
+      context: keycloak-client/signon
       dockerfile: Dockerfile
     environment:
       - PORT=${APP2_PORT}
@@ -43,11 +43,11 @@ services:
 #   conf_data:
 # volumes:
 #     - type: volume
-#         source: keycloack_data
+#         source: keycloak_data
 #         target: ${KETCLOACL_DATA_PATH}
 
 # volumes:
-#     keycloack_data:
+#     keycloak_data:
 #         driver: local
 #         driver_opts:
 #         type: bind
