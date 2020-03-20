@@ -6,10 +6,10 @@ services:
     image: jboss/keycloak
     ports:
     #   - "8080:8080"
-        - "{KC_SERVER_PORT}":{KC_SERVER_PORT}"
+        - "${KC_SERVER_PORT}:${KC_SERVER_PORT}"
     environment:
-      - KEYCLOAK_USER={KC_SERVER_USER}
-      - KEYCLOAK_PASSWORD={KC_SERVER_PASSWORD}
+      - KEYCLOAK_USER=${KC_SERVER_USER}
+      - KEYCLOAK_PASSWORD=${KC_SERVER_PASSWORD}
     #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
     # volumes:
       # - ${KETCLOACK_DATA_PATH}:/tmp
