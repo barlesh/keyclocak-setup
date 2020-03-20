@@ -9,6 +9,8 @@ services:
     environment:
       - KEYCLOAK_USER=${KC_SERVER_USER}
       - KEYCLOAK_PASSWORD=${KC_SERVER_PASSWORD}
+      # - KEYCLOAK_IMPORT=/tmp/my_realm.json
+      # - JAVA_OPTS="-Dkeycloak.profile.feature.scripts=enabled -Dkeycloak.profile.feature.upload_scripts=enabled -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true"
     #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
     # volumes:
       # - ${KETCLOACK_DATA_PATH}:/tmp
@@ -18,25 +20,32 @@ services:
 
   app1:
     build:
-      context: keycloak-client/signon
+      context: sso/keycloak-client/signon
       dockerfile: Dockerfile
     environment:
       - PORT=${APP1_PORT}
     ports:
       - "${APP1_PORT}:${APP1_PORT}"
-    links:
-        - keycloak
+    # links:
+    #     - keycloak
+    networks:
+      - authnet
 
   app2:
     build:
-      context: keycloak-client/signon
+      context: sso/keycloak-client/signon
       dockerfile: Dockerfile
     environment:
       - PORT=${APP2_PORT}
     ports:
       - "${APP2_PORT}:${APP2_PORT}"
-    links:
-        - keycloak
+    # links:
+    #     - keycloak
+    networks:
+      - authnet
+
+networks: 
+  authnet:
 
 # volumes:
 #   conf_data:
