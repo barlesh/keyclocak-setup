@@ -13,8 +13,8 @@ services:
       # - JAVA_OPTS="-Dkeycloak.profile.feature.scripts=enabled -Dkeycloak.profile.feature.upload_scripts=enabled -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true"
     #   - KEYCLOAK_IMPORT={KC_IMPORT_FILE_FULL_PATH_GUEST}
     # volumes:
-      # - ${KETCLOACK_DATA_PATH}:/tmp
-      #   - ${KC_IMPORT_FILE_FULL_PATH_HOST}:${KC_IMPORT_FILE_FULL_PATH_GUEST}
+    # - ${KETCLOACK_DATA_PATH}:/tmp
+    #   - ${KC_IMPORT_FILE_FULL_PATH_HOST}:${KC_IMPORT_FILE_FULL_PATH_GUEST}
     #   - conf_data:${KC_IMPORT_FILE_FULL_PATH_GUEST}
     #   - ${KC_IMPORT_FILE_LOCATION_PATH_HOST}:${KC_IMPORT_FILE_LOCATION_PATH_GUEST}
 
@@ -26,6 +26,11 @@ services:
       - PORT=${APP1_PORT}
     ports:
       - "${APP1_PORT}:${APP1_PORT}"
+    volumes:
+      # - type: bind
+      #   source: ./keycloak-server/realm-sso/realm.json
+      #   target: /usr/src/app/realm.json
+      - "./keycloak-server/realm-sso/realm.json:/usr/src/app/realm.json"
     networks:
       - authnet
 
@@ -40,11 +45,11 @@ services:
     networks:
       - authnet
 
-networks: 
+networks:
   authnet:
 
-# volumes:
-#   conf_data:
+volumes:
+  app_conf_folder:
 # volumes:
 #     - type: volume
 #         source: keycloak_data
